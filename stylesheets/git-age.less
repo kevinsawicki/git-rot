@@ -1,3 +1,21 @@
+@import "ui-variables";
+
 .git-rot {
   overflow: auto;
+
+  .file-view {
+    padding: 0 @component-padding 0 @component-padding;
+  }
+
+  .commits {
+    padding-right: @component-padding;
+
+    &.icon.icon-git-commit:before {
+      margin-right: 2px;
+    }
+  }
+
+  .authors.icon.icon-person:before {
+    margin-right: -2px;
+  }
 }
