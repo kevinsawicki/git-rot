@@ -22,8 +22,8 @@ class FileView extends View
     @commits.text(numberOfCommits)
     @authors.text(numberOfAuthors)
     @averageAge.text("Avg. age of lines: #{@secondsToDays(averageAge)} days")
-    @firstEdited.text("First edited: #{@secondsToDays(oldestLine.age)} days ago")
-    @lastEdited.text("Last edited: #{@secondsToDays(newestLine.age)} days ago")
+    @firstEdited.text("First commit: #{@secondsToDays(oldestLine.age)} days ago")
+    @lastEdited.text("Last commit: #{@secondsToDays(newestLine.age)} days ago")
 
   secondsToDays: (seconds) ->
     Math.round((Date.now() - (seconds * 1000)) / 86400000)
