@@ -3,6 +3,7 @@ path = require 'path'
 async = require 'async'
 fs = require 'fs-plus'
 Git = require 'git-utils'
+isBinaryFile = require 'isbinaryfile'
 
 Blame = require './blame'
 
@@ -34,7 +35,9 @@ module.exports = (repoPath) ->
   isIgnored = (pathInRepo) -> repo.isIgnored(repo.relativize(pathInRepo))
 
   pathsToBlame = []
-  onFile = (filePath) -> pathsToBlame.push(filePath) unless isIgnored(filePath)
+  onFile = (filePath) ->
+    if not isIgnored(filePath) and not isBinaryFile(filePath)
+      pathsToBlame.push(filePath)
   onDirectory = (directoryPath) -> not isIgnored(directoryPath)
 
   fs.traverseTreeSync(repo.getWorkingDirectory(), onFile, onDirectory)
