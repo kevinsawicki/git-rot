@@ -1,5 +1,6 @@
 path = require 'path'
 {View} = require 'atom'
+timeago = require 'timeago'
 
 module.exports =
 class FileView extends View
@@ -21,13 +22,17 @@ class FileView extends View
     @filename.text(path.basename(@path))
     @commits.text(numberOfCommits)
     @authors.text(numberOfAuthors)
-    @averageAge.text("Avg. age of lines: #{@secondsToDays(averageAge)} days")
-    @firstEdited.text("First commit: #{@secondsToDays(oldestLine.age)} days ago")
-    @lastEdited.text("Last commit: #{@secondsToDays(newestLine.age)} days ago")
+    @averageAge.text("Avg. age of lines: #{@millisecondsToDays(averageAge)} days")
+
+    oldestCommit = new Date(oldestLine.age)
+    @firstEdited.text("First commit #{timeago(oldestCommit)}").attr('title', oldestCommit)
+
+    latestCommit = new Date(newestLine.age)
+    @lastEdited.text("Last commit #{timeago(latestCommit)}").attr('title', latestCommit)
 
     @filename.on 'click', =>
       atom.workspace.open(@path)
       false
 
-  secondsToDays: (seconds) ->
-    Math.round((Date.now() - (seconds * 1000)) / 86400000)
+  millisecondsToDays: (seconds) ->
+    Math.round((Date.now() - (seconds)) / 86400000)
