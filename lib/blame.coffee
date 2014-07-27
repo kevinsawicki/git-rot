@@ -34,7 +34,7 @@ class Blame extends EventEmitter
         lineDetails.email = authorEmail[1]
       else if authorTime = /^author-time (\d+)$/.exec(line)
         lineDetails.age = parseInt(authorTime[1]) * 1000
-      else if lineText = /^\s+(.+)$/.exec(line)
+      else if lineText = /^\s+(.*)$/.exec(line)
         lineDetails.length = lineText[1].length
         @emit('line', lineDetails)
 
