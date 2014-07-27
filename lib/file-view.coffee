@@ -21,7 +21,7 @@ class FileView extends View
 
   initialize: ({@path, @lines, numberOfCommits, numberOfAuthors, averageAge, oldestLine, newestLine}) ->
     @filename.text(path.basename(@path))
-    @filename.setTooltip(atom.project.relativize(@path))
+    @filename.attr('title', atom.project.relativize(@path))
     @commits.text(numberOfCommits)
     @authors.text(numberOfAuthors)
 
