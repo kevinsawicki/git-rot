@@ -9,12 +9,13 @@ class FileView extends View
       @div class: 'panel bordered', =>
         @div class: 'panel-heading', =>
           @a outlet: 'filename'
-          @div class: 'pull-right', =>
+
+        @div class: 'panel-body padded', =>
+          @div class: 'stats', =>
+            @span class: 'icon icon-three-bars line-count', outlet: 'lineCount'
             @span class: 'icon icon-git-commit commits', outlet: 'commits'
             @span class: 'icon icon-person authors', outlet: 'authors'
 
-        @div class: 'panel-body padded', =>
-          @div outlet: 'lineCount'
           @div outlet: 'averageAge'
           @div outlet: 'firstEdited'
           @div outlet: 'lastEdited'
@@ -25,7 +26,7 @@ class FileView extends View
     @commits.text(numberOfCommits)
     @authors.text(numberOfAuthors)
 
-    @lineCount.text("#{@lines.length} lines")
+    @lineCount.text(@lines.length)
     @averageAge.text("Avg. age of lines: #{@millisecondsToDays(averageAge)} days")
 
     oldestCommit = new Date(oldestLine.age)
