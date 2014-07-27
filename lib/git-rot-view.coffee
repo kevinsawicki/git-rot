@@ -5,11 +5,11 @@ module.exports =
 class GitRotView extends ScrollView
   @content: ->
     @div class: 'git-rot pane-item', =>
-      @div class: 'block padded', outlet: 'progressArea', =>
-        @progress class: 'inline-block', outlet: 'progressBar'
-        @span class: 'inline-block text-highlight', outlet: 'progressLabel', 'Scanning repository\u2026'
-
       @div class: 'padded', =>
+        @div class: 'block blame-progress', outlet: 'progressArea', =>
+          @progress class: 'inline-block', outlet: 'progressBar'
+          @div class: 'text-highlight', outlet: 'progressLabel', 'Scanning repository\u2026'
+
         @div class: 'container', outlet: 'container'
 
   initialize: ({@uri}) ->
