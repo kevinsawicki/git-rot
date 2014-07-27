@@ -7,7 +7,7 @@ class FileView extends View
     @div class: 'col-md-3 file-view', =>
       @div class: 'panel bordered', =>
         @div class: 'panel-heading', =>
-          @span outlet: 'filename'
+          @a outlet: 'filename'
           @div class: 'pull-right', =>
             @span class: 'icon icon-git-commit commits', outlet: 'commits'
             @span class: 'icon icon-person authors', outlet: 'authors'
@@ -24,6 +24,10 @@ class FileView extends View
     @averageAge.text("Avg. age of lines: #{@secondsToDays(averageAge)} days")
     @firstEdited.text("First commit: #{@secondsToDays(oldestLine.age)} days ago")
     @lastEdited.text("Last commit: #{@secondsToDays(newestLine.age)} days ago")
+
+    @filename.on 'click', =>
+      atom.workspace.open(@path)
+      false
 
   secondsToDays: (seconds) ->
     Math.round((Date.now() - (seconds * 1000)) / 86400000)
