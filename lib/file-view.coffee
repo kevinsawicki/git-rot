@@ -14,6 +14,7 @@ class FileView extends View
             @span class: 'icon icon-person authors', outlet: 'authors'
 
         @div class: 'panel-body padded', =>
+          @div outlet: 'lineCount'
           @div outlet: 'averageAge'
           @div outlet: 'firstEdited'
           @div outlet: 'lastEdited'
@@ -22,6 +23,8 @@ class FileView extends View
     @filename.text(path.basename(@path))
     @commits.text(numberOfCommits)
     @authors.text(numberOfAuthors)
+
+    @lineCount.text("#{@lines.length} lines")
     @averageAge.text("Avg. age of lines: #{@millisecondsToDays(averageAge)} days")
 
     oldestCommit = new Date(oldestLine.age)
